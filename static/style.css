@@ -1,39 +1,49 @@
+
 body {
   margin: 0;
-  background: #fff;
   font-family: sans-serif;
-  overflow: hidden;
-}
-#game-container {
   text-align: center;
-  padding: 20px;
+  background-color: #f0f0f0;
 }
-#timer {
-  font-size: 2em;
-  color: red;
-  margin-bottom: 10px;
-}
-#grid {
-  display: grid;
-  grid-template-columns: repeat(4, 80px);
-  gap: 10px;
-  justify-content: center;
-}
-.face {
-  width: 80px;
-  height: 80px;
-  background: url('https://i.imgur.com/VXxdZkk.png') center/cover no-repeat;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-#results {
-  margin-top: 20px;
+button {
+  padding: 10px 20px;
+  font-size: 1.2em;
 }
 .hidden {
   display: none;
 }
-.buttons button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 1em;
+#hud {
+  display: flex;
+  justify-content: space-around;
+  background-color: #222;
+  color: white;
+  padding: 10px;
+  font-size: 1.2em;
+}
+#grid-container {
+  width: 100%;
+  max-width: 360px;
+  height: 560px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: white;
+  border: 2px solid #ccc;
+}
+#grid {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.tile {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #ccc;
+  background-size: cover;
+  background-position: center;
+}
+.blank {
+  background-color: #eee;
 }

@@ -2,26 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Face Clicker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Tap Challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-  <div id="game-container">
-    <div id="timer">TIME: 20</div>
-    <div id="grid"></div>
-    <div id="results" class="hidden">
-      <h1>Time's up!</h1>
-      <p>CPS: <span id="cps">0.00</span></p>
-      <p>Score: <span id="score">0</span></p>
-      <p>Best: <span id="best">0</span></p>
-      <div class="buttons">
-        <button onclick="startGame()">Retry</button>
-        <button onclick="window.location.reload()">Home</button>
-        <button onclick="window.open('https://github.com/Munii1234/my-first-project')">Source</button>
-      </div>
+  <div id="home-screen">
+    <h1>Face Tap Challenge</h1>
+    <p>Only tap the image tile at the bottom row!</p>
+    <button onclick="startGame()">Start</button>
+  </div>
+
+  <div id="game-screen" class="hidden">
+    <div id="hud">
+      <span id="timer">Time: 20</span>
+      <span id="score">Score: 0</span>
+      <span id="cps">CPS: 0</span>
+    </div>
+    <div id="grid-container">
+      <div id="grid"></div>
     </div>
   </div>
+
+  <div id="game-over" class="hidden">
+    <h2>Game Over</h2>
+    <p>Score: <span id="final-score">0</span></p>
+    <p>Best: <span id="best-score">0</span></p>
+    <p>CPS: <span id="final-cps">0</span></p>
+    <button onclick="startGame()">Retry</button>
+    <button onclick="goHome()">Home</button>
+  </div>
+
   <script src="static/script.js"></script>
 </body>
 </html>
