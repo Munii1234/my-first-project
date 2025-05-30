@@ -49,7 +49,7 @@ function addRow() {
     row.appendChild(tile);
   }
 
-  document.getElementById('grid').appendChild(row);
+  document.getElementById('grid').insertBefore(row, document.getElementById('grid').firstChild);
 }
 
 function updateHUD() {
