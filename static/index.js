@@ -1,1 +1,0 @@
-function init() { console.log('Game initialized'); } function readyBtn() { alert('Game Started!'); }

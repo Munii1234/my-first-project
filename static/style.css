@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+#game-container {
+  text-align: center;
+  padding: 20px;
+}
+#timer {
+  font-size: 2em;
+  color: red;
+  margin-bottom: 10px;
+}
+#grid {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  gap: 10px;
+  justify-content: center;
+}
+.face {
+  width: 80px;
+  height: 80px;
+  background: url('https://i.imgur.com/VXxdZkk.png') center/cover no-repeat;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+#results {
+  margin-top: 20px;
+}
+.hidden {
+  display: none;
+}
+.buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+}
