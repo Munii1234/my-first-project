@@ -1,94 +1,66 @@
 
+const ROWS = 8;
+const COLS = 4;
 let score = 0;
-let bestScore = 0;
-let clicks = 0;
-let timeLeft = 20;
-let interval;
-let startTime;
-const faces = ['static/img/face1.jpg', 'static/img/face2.jpg', 'static/img/face3.jpg'];
+let best = 0;
+let cps = 0;
+let intervalId;
 
-function startGame() {
-  document.getElementById('home-screen').classList.add('hidden');
-  document.getElementById('game-over').classList.add('hidden');
-  document.getElementById('game-screen').classList.remove('hidden');
+function createRow() {
+    const row = document.createElement('div');
+    row.className = 'row';
 
-  score = 0;
-  clicks = 0;
-  timeLeft = 20;
-  startTime = Date.now();
-  document.getElementById('grid').innerHTML = '';
-  updateHUD();
+    const faceCol = Math.floor(Math.random() * COLS);
+    for (let i = 0; i < COLS; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
 
-  for (let i = 0; i < 7; i++) {
-    addRow();
-  }
+        if (i === faceCol) {
+            const img = document.createElement('img');
+            img.src = 'static/img/face' + (Math.floor(Math.random() * 3) + 1) + '.jpeg';
+            cell.appendChild(img);
+        }
 
-  clearInterval(interval);
-  interval = setInterval(() => {
-    timeLeft--;
-    updateHUD();
-    if (timeLeft <= 0) endGame();
-  }, 1000);
-}
+        cell.addEventListener('click', () => {
+            const allRows = document.querySelectorAll('.row');
+            const lastRow = allRows[allRows.length - 1];
+            if (!lastRow.contains(cell)) return;
 
-function addRow() {
-  const row = document.createElement('div');
-  row.className = 'row';
-  const correctIndex = Math.floor(Math.random() * 4);
-  const randomFace = faces[Math.floor(Math.random() * faces.length)];
+            if (!cell.querySelector('img')) {
+                endGame();
+                return;
+            }
 
-  for (let i = 0; i < 4; i++) {
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-    if (i === correctIndex) {
-      tile.style.backgroundImage = `url(${randomFace})`;
-      tile.dataset.correct = 'true';
-    } else {
-      tile.classList.add('blank');
+            score++;
+            cps++;
+            best = Math.max(best, score);
+            updateScore();
+
+            document.getElementById('grid').removeChild(lastRow);
+            createRow();
+        });
+
+        row.appendChild(cell);
     }
-    row.appendChild(tile);
-  }
 
-  document.getElementById('grid').insertBefore(row, document.getElementById('grid').firstChild);
+    document.getElementById('grid').insertBefore(row, document.getElementById('grid').firstChild);
 }
 
-function updateHUD() {
-  document.getElementById('timer').textContent = 'Time: ' + timeLeft;
-  document.getElementById('score').textContent = 'Score: ' + score;
-  const elapsed = (Date.now() - startTime) / 1000;
-  const cps = clicks / elapsed;
-  document.getElementById('cps').textContent = 'CPS: ' + cps.toFixed(2);
+function updateScore() {
+    document.getElementById('score').textContent = 'Score: ' + score;
+    document.getElementById('best').textContent = 'Best: ' + best;
+    document.getElementById('cps').textContent = 'CPS: ' + cps;
 }
 
 function endGame() {
-  clearInterval(interval);
-  document.getElementById('game-screen').classList.add('hidden');
-  document.getElementById('game-over').classList.remove('hidden');
-  document.getElementById('final-score').textContent = score;
-  bestScore = Math.max(score, bestScore);
-  document.getElementById('best-score').textContent = bestScore;
-  document.getElementById('final-cps').textContent = (clicks / 20).toFixed(2);
+    clearInterval(intervalId);
+    alert("Game Over! Final score: " + score);
+    location.reload();
 }
 
-function goHome() {
-  document.getElementById('game-over').classList.add('hidden');
-  document.getElementById('home-screen').classList.remove('hidden');
+function startGame() {
+    for (let i = 0; i < ROWS; i++) createRow();
+    intervalId = setInterval(() => cps = 0, 1000);
 }
 
-document.getElementById('grid').addEventListener('click', function (e) {
-  if (timeLeft <= 0) return;
-  const rows = document.querySelectorAll('.row');
-  if (rows.length === 0) return;
-  const bottomRow = rows[0];
-  if (!bottomRow.contains(e.target)) return;
-
-  if (e.target.dataset.correct === 'true') {
-    score++;
-    clicks++;
-    updateHUD();
-    bottomRow.remove();
-    addRow();
-  } else {
-    endGame();
-  }
-});
+window.onload = startGame;
