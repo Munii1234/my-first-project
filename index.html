@@ -1,19 +1,45 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Face Clicker Game</title>
-    <link rel="stylesheet" href="static/style.css">
+    <title>つむの好きのゲーム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; font-family: sans-serif; background: #121212; color: white; text-align: center; }
+        .main-menu { background: linear-gradient(to right, #ff9966, #ff5e62); padding: 40px 20px; }
+        .main-menu h1 { font-size: 2.5em; color: #fff; }
+        .btn-group button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #333;
+        }
+        #game-board { margin-top: 20px; }
+        .tile { flex: 1; height: 60px; background: #333; display: flex; align-items: center; justify-content: center; }
+        .tile img { max-height: 100%; object-fit: cover; }
+    </style>
 </head>
 <body>
-    <h1>Face Clicker</h1>
-    <div id="grid"></div>
-    <div id="scoreboard">
-        <span id="score">Score: 0</span>
-        <span id="best">Best: 0</span>
-        <span id="cps">CPS: 0</span>
+
+<div class="main-menu">
+    <h1>つむの好きのゲーム</h1>
+    <div class="btn-group">
+        <button onclick="startGameWithTime(5)">5秒</button>
+        <button onclick="startGameWithTime(10)">10秒</button>
+        <button onclick="startGameWithTime(20)">20秒</button>
     </div>
-    <script src="static/script.js"></script>
+</div>
+
+<div id="game-section" style="display:none;">
+    <h2>スコア: <span id="score">0</span></h2>
+    <div id="game-board"></div>
+</div>
+
+<script src="./static/script.js"></script>
 </body>
 </html>
